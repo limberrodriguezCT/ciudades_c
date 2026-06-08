@@ -1,58 +1,13 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Circuitos Creativos - Red Nacional de Ciudades Creativas
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descripción del Proyecto
+[cite_start]Esta plataforma tecnológica surge como solución para conectar las diez Ciudades Creativas de Nicaragua (Estelí, León, Nagarote, Managua, Masaya, Granada, San Juan de Oriente, Juigalpa, Matagalpa y Bluefields) con el turismo global[cite: 280, 284]. [cite_start]El sistema centraliza la oferta cultural y turística, permitiendo a los visitantes localizar, conocer y compartir saberes populares, tradiciones y eventos mediante mapas interactivos y experiencias inmersivas[cite: 280]. 
 
-## About Laravel
+## Características Principales
+El sistema cuenta con un control de accesos estructurado mediante roles específicos para administradores, emprendedores y turistas. Incorpora un módulo de mapas interactivos diseñado para trazar los recorridos oficiales de los circuitos creativos en cada ciudad. [cite_start]Integra una agenda dinámica y pública donde se visualizan presentaciones, talleres, ferias y expo-ventas[cite: 280]. [cite_start]Además, proporciona un panel de gestión exclusivo para que los protagonistas de las industrias creativas y culturales oferten sus productos y servicios de manera directa[cite: 282].
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías Utilizadas
+El proyecto está estructurado sobre el framework Laravel con PHP, garantizando una arquitectura relacional sólida, segura y escalable. La interfaz visual se encuentra construida con Tailwind CSS y procesada mediante Vite, ofreciendo un diseño moderno, responsivo y optimizado para dispositivos móviles. La base de datos es gestionada a través de MySQL, preparada para manejar un alto tráfico de consultas simultáneas.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Instrucciones de Instalación
+Para implementar este proyecto en un entorno local, el primer paso es clonar el repositorio dentro de su servidor de desarrollo. Seguidamente, se deben instalar todas las dependencias del sistema ejecutando los comandos correspondientes de Composer y NPM en la terminal. Luego, es necesario duplicar el archivo de entorno, generar la clave de la aplicación y establecer las credenciales de conexión a su base de datos. Finalmente, se deben ejecutar las migraciones para construir las tablas y compilar los recursos visuales, lo que dejará el sistema listo para su uso.
