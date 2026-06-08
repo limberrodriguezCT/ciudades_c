@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('map_coordinates')->nullable();
             $table->string('cover_image')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->timestamps();
         });
     }
 
