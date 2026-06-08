@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\CityController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -36,6 +38,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 // Rutas exclusivas para Emprendedores
 Route::middleware(['auth', 'verified', 'role:emprendedor'])->group(function () {
     // Aquí se agregarán las rutas para gestionar servicios y agenda
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/ciudades', [CityController::class, 'index'])->name('cities.index');
 });
 
 require __DIR__.'/auth.php';
