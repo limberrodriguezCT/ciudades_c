@@ -78,6 +78,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmarEliminacion(event, id) {
             event.preventDefault(); 
@@ -102,5 +103,23 @@
                 }
             })
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#1e293b',
+                    color: '#ffffff',
+                    iconColor: '#10b981',
+                    customClass: {
+                        popup: 'border border-gray-700 rounded-2xl shadow-lg'
+                    }
+                });
+            @endif
+        });
     </script>
 </x-app-layout>

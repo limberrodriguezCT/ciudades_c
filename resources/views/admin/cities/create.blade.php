@@ -70,4 +70,45 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if($errors->any())
+                let errorMessages = '';
+                @foreach ($errors->all() as $error)
+                    errorMessages += '<p style="margin-bottom: 0.25rem;">• {{ $error }}</p>';
+                @endforeach
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Revise la información',
+                    html: `<div style="text-align: left; font-size: 0.95em;">${errorMessages}</div>`,
+                    confirmButtonColor: '#4f46e5',
+                    confirmButtonText: 'Entendido',
+                    background: '#1e293b',
+                    color: '#ffffff',
+                    customClass: {
+                        popup: 'border border-gray-700 rounded-2xl shadow-lg'
+                    }
+                });
+            @endif
+
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#1e293b',
+                    color: '#ffffff',
+                    iconColor: '#10b981',
+                    customClass: {
+                        popup: 'border border-gray-700 rounded-2xl shadow-lg'
+                    }
+                });
+            @endif
+        });
+    </script>
 </x-app-layout>

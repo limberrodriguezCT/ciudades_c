@@ -14,7 +14,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 dark:border-gray-700">
                 <div class="p-8">
-                    <form action="{{ route('admin.cities.update', $city->id) }}" method="POST" enctype="multipart/form-data" novalidate>
+                    <form action="{{ route('admin.cities.update', $city->id) }}" method="POST" id="form-edit-{{ $city->id }}" enctype="multipart/form-data" novalidate onsubmit="confirmarActualizacion(event, {{ $city->id }})">
                         @csrf
                         @method('PUT')
                         
@@ -70,4 +70,69 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarActualizacion(event, id) {
+            event.preventDefault(); 
+            
+            Swal.fire({
+                title: '¿Guardar los cambios?',
+                text: "Se actualizará la información de esta ciudad.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#4f46e5',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Sí, actualizar',
+                cancelButtonText: 'Cancelar',
+                background: '#1e293b',
+                color: '#ffffff',
+                customClass: {
+                    popup: 'rounded-2xl border border-gray-700'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('form-edit-' + id).submit(); 
+                }
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            @if($errors->any())
+                let errorMessages = '';
+                @foreach ($errors->all() as $error)
+                    errorMessages += '<p style="margin-bottom: 0.25rem;">• {{ $error }}</p>';
+                @endforeach
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Revise la información',
+                    html: `<div style="text-align: left; font-size: 0.95em;">${errorMessages}</div>`,
+                    confirmButtonColor: '#4f46e5',
+                    confirmButtonText: 'Entendido',
+                    background: '#1e293b',
+                    color: '#ffffff',
+                    customClass: {
+                        popup: 'border border-gray-700 rounded-2xl shadow-lg'
+                    }
+                });
+            @endif
+
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#1e293b',
+                    color: '#ffffff',
+                    iconColor: '#10b981',
+                    customClass: {
+                        popup: 'border border-gray-700 rounded-2xl shadow-lg'
+                    }
+                });
+            @endif
+        });
+    </script>
 </x-app-layout>
