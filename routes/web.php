@@ -2,18 +2,19 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\CityController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
+Route::get('/', [PublicController::class, 'index'])->name('home');
 // Rutas protegidas genéricas
 Route::middleware(['auth', 'verified', 'prevent-back-history'])->group(function () {
     
     // Redirección dinámica del Dashboard según el rol
     Route::get('/dashboard', function () {
-        $role = auth()->user()->role;
+        $role = Auth::user()->role;
         
         if ($role === 'admin') {
             return view('dashboard.admin');
