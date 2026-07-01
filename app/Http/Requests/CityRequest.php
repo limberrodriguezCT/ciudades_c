@@ -2,31 +2,23 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CityRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-       return [
+        return [
             'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'map_coordinates' => 'nullable|string',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -38,7 +30,10 @@ class CityRequest extends FormRequest
             'name.max' => 'El nombre de la ciudad no puede exceder los 100 caracteres permitidos.',
             'description.string' => 'La descripción ingresada debe contener un formato de texto válido.',
             'map_coordinates.string' => 'Las coordenadas del mapa deben ingresarse en formato de texto.',
-            'is_active.boolean' => 'El estado de la ciudad presenta un formato no reconocido por el sistema.'
+            'is_active.boolean' => 'El estado de la ciudad presenta un formato no reconocido por el sistema.',
+            'cover_image.image' => 'El archivo subido debe ser una imagen válida.',
+            'cover_image.mimes' => 'La fotografía de portada debe estar en formato JPEG, PNG o JPG.',
+            'cover_image.max' => 'El tamaño de la fotografía de portada no debe superar los 2MB.',
         ];
     }
 }
