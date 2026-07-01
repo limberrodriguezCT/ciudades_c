@@ -41,7 +41,9 @@ Route::middleware(['auth', 'verified', 'role:emprendedor'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/ciudades', [CityController::class, 'index'])->name('cities.index');
+    Route::resource('ciudades', CityController::class)
+        ->parameters(['ciudades' => 'city'])
+        ->names('cities');
 });
 
 require __DIR__.'/auth.php';

@@ -31,6 +31,16 @@
             <main>
                 {{ $slot }}
             </main>
+
+            @if (session('success'))
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-sm" role="alert">
+            <p class="font-bold">Notificación</p>
+            <p>{{ session('success') }}</p>
+        </div>
+    </div>
+@endif
+
         </div>
     </body>
 </html>

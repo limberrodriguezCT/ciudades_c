@@ -4,9 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Gestión de Ciudades Creativas
             </h2>
-            <button class="px-4 py-2 bg-indigo-600 text-white rounded-md font-semibold text-sm hover:bg-indigo-700 transition">
-                Nueva Ciudad
-            </button>
+            <a href="{{ route('admin.cities.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md font-semibold text-sm hover:bg-indigo-700 transition">
+    Nueva Ciudad
+</a>
         </div>
     </x-slot>
 
@@ -37,7 +37,7 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <a href="#" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">Editar</a>
+                                            <a href="{{ route('admin.cities.edit', $city->id) }}" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">Editar</a>
                                         </td>
                                     </tr>
                                 @endforeach
