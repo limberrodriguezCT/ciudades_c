@@ -10,7 +10,7 @@ class City extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'map_coordinates', 'cover_image', 'is_active'
+        'name', 'description', 'map_coordinates', 'cover_image', 'is_active', 'image_path'
     ];
 
     public function places()
