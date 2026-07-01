@@ -1,51 +1,106 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Gestión de Ciudades Creativas
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-100 leading-tight tracking-tight">
+                {{ __('Listado de Ciudades Creativas') }}
             </h2>
-            <a href="{{ route('admin.cities.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md font-semibold text-sm hover:bg-indigo-700 transition">
-    Nueva Ciudad
-</a>
+            <a href="{{ route('admin.cities.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-xl font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 shadow-lg shadow-indigo-500/30">
+                + Nueva Ciudad
+            </a>
         </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b border-gray-200 dark:border-gray-600">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">ID</th>
-                                    <th scope="col" class="px-6 py-3">Nombre</th>
-                                    <th scope="col" class="px-6 py-3">Descripción</th>
-                                    <th scope="col" class="px-6 py-3">Estado</th>
-                                    <th scope="col" class="px-6 py-3 text-right">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($cities as $city)
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                        <td class="px-6 py-4">{{ $city->id }}</td>
-                                        <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">{{ $city->name }}</td>
-                                        <td class="px-6 py-4">{{ Str::limit($city->description, 60) }}</td>
-                                        <td class="px-6 py-4">
-                                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full dark:bg-green-900 dark:text-green-300">
-                                                {{ $city->is_active ? 'Activo' : 'Inactivo' }}
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900/50 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 font-semibold">Portada</th>
+                                <th scope="col" class="px-6 py-4 font-semibold">Nombre de la Ciudad</th>
+                                <th scope="col" class="px-6 py-4 font-semibold">Estado</th>
+                                <th scope="col" class="px-6 py-4 font-semibold text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @forelse ($cities as $city)
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        @if($city->cover_image)
+                                            <img src="{{ asset('storage/' . $city->cover_image) }}" alt="Portada de {{ $city->name }}" class="w-16 h-16 object-cover rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
+                                        @else
+                                            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg flex items-center justify-center text-gray-400 text-xs text-center shadow-sm">
+                                                Sin foto
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                        {{ $city->name }}
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate max-w-xs">{{ $city->description ?? 'Sin descripción' }}</p>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if($city->is_active)
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800/50">
+                                                Activa
                                             </span>
-                                        </td>
-                                        <td class="px-6 py-4 text-right">
-                                            <a href="{{ route('admin.cities.edit', $city->id) }}" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">Editar</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                        @else
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800/50">
+                                                Inactiva
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 text-right space-x-3">
+                                        <a href="{{ route('admin.cities.edit', $city->id) }}" class="inline-block text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 font-medium transition-colors">
+                                            Editar
+                                        </a>
+                                        
+                                        <form action="{{ route('admin.cities.destroy', $city->id) }}" method="POST" class="inline-block" id="form-delete-{{ $city->id }}" onsubmit="confirmarEliminacion(event, {{ $city->id }})">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-medium transition-colors">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                        No hay ciudades creativas registradas en el sistema por el momento.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function confirmarEliminacion(event, id) {
+            event.preventDefault(); 
+            
+            Swal.fire({
+                title: '¿Eliminar este registro?',
+                text: "Esta acción borrará la ciudad y su fotografía permanentemente.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                background: '#1e293b',
+                color: '#ffffff',
+                customClass: {
+                    popup: 'rounded-2xl border border-gray-700'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('form-delete-' + id).submit(); 
+                }
+            })
+        }
+    </script>
 </x-app-layout>

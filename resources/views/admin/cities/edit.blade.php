@@ -14,24 +14,41 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 dark:border-gray-700">
                 <div class="p-8">
-                    <form action="{{ route('admin.cities.update', $city->id) }}" method="POST">
+                    <form action="{{ route('admin.cities.update', $city->id) }}" method="POST" enctype="multipart/form-data" novalidate>
                         @csrf
                         @method('PUT')
                         
                         <div class="grid grid-cols-1 gap-6">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre de la Ciudad Creativa</label>
-                                <input type="text" name="name" id="name" value="{{ $city->name }}" class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                <input type="text" name="name" id="name" value="{{ old('name', $city->name) }}" class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                @error('name')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descripción Histórica o Cultural</label>
-                                <textarea name="description" id="description" rows="4" class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ $city->description }}</textarea>
+                                <textarea name="description" id="description" rows="4" class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('description', $city->description) }}</textarea>
+                                @error('description')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label for="map_coordinates" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Coordenadas del Mapa (Opcional)</label>
-                                <input type="text" name="map_coordinates" id="map_coordinates" value="{{ $city->map_coordinates }}" class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <input type="text" name="map_coordinates" id="map_coordinates" value="{{ old('map_coordinates', $city->map_coordinates) }}" class="w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                @error('map_coordinates')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="cover_image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Actualizar Fotografía de Portada</label>
+                                <input type="file" id="cover_image" name="cover_image" accept="image/jpeg, image/png, image/jpg" class="w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-gray-700 dark:file:text-gray-300 dark:hover:file:bg-gray-600 transition-colors">
+                                @error('cover_image')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="flex items-center mt-2">

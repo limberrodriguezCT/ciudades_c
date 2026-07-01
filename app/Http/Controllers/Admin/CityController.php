@@ -25,8 +25,8 @@ class CityController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active') ? true : false;
 
-        if ($request->hasFile('image_path')) {
-            $data['image_path'] = $request->file('image_path')->store('cities', 'public');
+        if ($request->hasFile('cover_image')) {
+            $data['cover_image'] = $request->file('cover_image')->store('cities', 'public');
         }
 
         City::create($data);
@@ -44,11 +44,11 @@ class CityController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active') ? true : false;
 
-        if ($request->hasFile('image_path')) {
-            if ($city->image_path) {
-                Storage::disk('public')->delete($city->image_path);
+        if ($request->hasFile('cover_image')) {
+            if ($city->cover_image) {
+                Storage::disk('public')->delete($city->cover_image);
             }
-            $data['image_path'] = $request->file('image_path')->store('cities', 'public');
+            $data['cover_image'] = $request->file('cover_image')->store('cities', 'public');
         }
 
         $city->update($data);
@@ -58,11 +58,11 @@ class CityController extends Controller
     
     public function destroy(City $city)
     {
-        if ($city->image_path) {
-            Storage::disk('public')->delete($city->image_path);
+        if ($city->cover_image) {
+            Storage::disk('public')->delete($city->cover_image);
         }
         
-        City::destroy($city->id);
+        City::destroy($city->getKey());
         
         return redirect()->route('admin.cities.index')->with('success', 'Ciudad eliminada correctamente del sistema.');
     }
