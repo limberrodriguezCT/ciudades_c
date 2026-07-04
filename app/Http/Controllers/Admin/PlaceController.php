@@ -12,8 +12,8 @@ class PlaceController extends Controller
 {
     public function index()
     {
-        $places = Place::with('city')->get();
-        return view('admin.places.index', compact('places'));
+        $cities = City::where('is_active', true)->get();
+        return view('welcome', compact('cities'));
     }
 
     public function create()

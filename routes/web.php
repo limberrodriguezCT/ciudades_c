@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/circuito/{id}', [PublicController::class, 'show'])->name('public.city.show');
 // Rutas protegidas genéricas
 Route::middleware(['auth', 'verified', 'prevent-back-history'])->group(function () {
     

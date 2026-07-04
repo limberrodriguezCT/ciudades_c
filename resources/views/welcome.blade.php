@@ -68,7 +68,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-indigo-50 dark:bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner border border-indigo-100 dark:border-gray-700">
-                            <svg class="w-8 h-8 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <svg class="w-8 h-8 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Patrimonio Histórico</h3>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Espacios que preservan la memoria arquitectónica y las tradiciones ancestrales, transmitiéndolas de generación en generación.</p>
@@ -120,7 +120,7 @@
                             </p>
                             
                             <div class="mt-auto">
-                                <a href="#" class="inline-flex items-center justify-center w-full px-6 py-3 bg-gray-50 dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
+                                <a href="{{ route('public.city.show', $city->id) }}" class="inline-flex items-center justify-center w-full px-6 py-3 bg-gray-50 dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
                                     Explorar Circuito 
                                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                 </a>
