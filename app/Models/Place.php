@@ -13,6 +13,8 @@ class Place extends Model
         'city_id',
         'name',
         'description',
+        'latitude',
+        'longitude',
         'image_path',
         'is_active'
     ];
