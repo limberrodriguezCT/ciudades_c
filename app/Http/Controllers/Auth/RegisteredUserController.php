@@ -34,6 +34,8 @@ class RegisteredUserController extends Controller
             'role.in' => 'El perfil seleccionado no es reconocido.',
             'phone.max' => 'El número de teléfono no debe exceder los 20 caracteres.',
             'phone.unique' => 'Este número de teléfono ya se encuentra registrado.',
+            'identification.required_if' => 'La cédula de identidad es obligatoria al registrarse como emprendedor.',
+            'identification.regex' => 'El formato de la cédula es incorrecto. Debe incluir guiones y la letra final (Ej. 000-000000-0000A).',
             'identification.max' => 'La cédula de identidad no debe exceder los 30 caracteres.',
             'country.max' => 'El país no debe exceder los 100 caracteres.',
         ];
@@ -44,7 +46,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Password::min(8)],
             'role' => ['required', 'string', 'in:turista,emprendedor'],
             'phone' => ['nullable', 'string', 'max:20', 'unique:'.User::class],
-            'identification' => ['nullable', 'string', 'max:30'],
+            'identification' => ['nullable', 'required_if:role,emprendedor', 'string', 'regex:/^\d{3}-\d{6}-\d{4}[A-Za-z]$/', 'max:30'],
             'country' => ['nullable', 'string', 'max:100'],
         ], $messages);
 

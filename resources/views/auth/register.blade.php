@@ -1,52 +1,12 @@
 <x-guest-layout>
-    <div x-data="{ 
+    <div x-data="registroValidacion({ 
         step: {{ $errors->any() ? (old('phone') !== null || old('identification') !== null || old('country') !== null ? 3 : 2) : 1 }}, 
         role: '{{ old('role', '') }}',
         name: '{{ old('name', '') }}',
         email: '{{ old('email', '') }}',
-        password: '',
-        password_confirmation: '',
-        validarPaso() {
-            if (!this.name || !this.email || !this.password || !this.password_confirmation) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Campos incompletos',
-                    text: 'Por favor, complete todos los datos obligatorios de la cuenta.',
-                    confirmButtonColor: '#4f46e5',
-                    background: '#1e293b',
-                    color: '#ffffff',
-                    customClass: { popup: 'rounded-2xl shadow-lg border border-gray-700' }
-                });
-                return;
-            }
-            if (this.password.length < 8) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Contraseña insegura',
-                    text: 'La contraseña debe contener un mínimo de 8 caracteres.',
-                    confirmButtonColor: '#4f46e5',
-                    background: '#1e293b',
-                    color: '#ffffff',
-                    customClass: { popup: 'rounded-2xl shadow-lg border border-gray-700' }
-                });
-                return;
-            }
-            if (this.password !== this.password_confirmation) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Verifique su contraseña',
-                    text: 'Las contraseñas ingresadas no coinciden.',
-                    confirmButtonColor: '#4f46e5',
-                    background: '#1e293b',
-                    color: '#ffffff',
-                    customClass: { popup: 'rounded-2xl shadow-lg border border-gray-700' }
-                });
-                return;
-            }
-            this.step = 3;
-        }
-    }" class="w-full p-8 md:p-12">
-        <form method="POST" action="{{ route('register') }}">
+        identification: '{{ old('identification', '') }}'
+    })" class="w-full p-8 md:p-12">
+        <form method="POST" action="{{ route('register') }}" @submit="validarEnvio" novalidate>
             @csrf
 
             <input type="hidden" name="role" x-model="role">
@@ -135,7 +95,7 @@
                     
                     <div x-show="role === 'emprendedor'">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cédula de Identidad *</label>
-                        <input type="text" name="identification" value="{{ old('identification') }}" :required="role === 'emprendedor' && step === 3" class="w-full bg-gray-50 dark:bg-gray-900 rounded-xl border-gray-200 dark:border-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="000-000000-0000A">
+                        <input type="text" name="identification" x-model="identification" @input="formatearCedula" :required="role === 'emprendedor' && step === 3" class="w-full bg-gray-50 dark:bg-gray-900 rounded-xl border-gray-200 dark:border-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="000-000000-0000A">
                     </div>
                     
                     <div x-show="role === 'turista'" class="col-span-1 md:col-span-2">
@@ -164,28 +124,5 @@
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            @if($errors->any())
-                let errorMessages = '';
-                @foreach ($errors->all() as $error)
-                    errorMessages += '<p style="margin-bottom: 0.35rem;">{{ $error }}</p>';
-                @endforeach
-
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Verifique los datos',
-                    html: `<div style="text-align: left; font-size: 0.95em;">${errorMessages}</div>`,
-                    confirmButtonColor: '#4f46e5',
-                    confirmButtonText: 'Entendido',
-                    background: '#1e293b',
-                    color: '#ffffff',
-                    customClass: {
-                        popup: 'border border-gray-700 rounded-2xl shadow-lg'
-                    }
-                });
-            @endif
-        });
-    </script>
+    @include('auth.register-scripts')
 </x-guest-layout>
