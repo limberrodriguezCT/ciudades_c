@@ -7,6 +7,7 @@
         
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -89,26 +90,39 @@
                 @endforelse
             </div>
             
-            @if($city->map_coordinates)
             <div class="mt-20">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Ubicación del Circuito</h2>
-                <div class="w-full h-96 bg-gray-200 dark:bg-gray-800 rounded-3xl overflow-hidden shadow-inner border border-gray-200 dark:border-gray-700">
-                    <iframe 
-                        width="100%" 
-                        height="100%" 
-                        frameborder="0" 
-                        scrolling="no" 
-                        marginheight="0" 
-                        marginwidth="0" 
-                        src="https://maps.google.com/maps?q={{ $city->map_coordinates }}&t=&z=15&ie=UTF8&iwloc=&output=embed">
-                    </iframe>
-                </div>
+                <div id="map" class="w-full h-96 bg-gray-200 dark:bg-gray-800 rounded-3xl overflow-hidden shadow-inner border border-gray-200 dark:border-gray-700 z-10"></div>
             </div>
-            @endif
         </main>
 
         <footer class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 mt-12 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
             &copy; {{ date('Y') }} Ciudades Creativas. Todos los derechos reservados.
         </footer>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                @if($city->map_coordinates)
+                    var coords = '{{ $city->map_coordinates }}'.split(',');
+                    var map = L.map('map').setView([parseFloat(coords[0]), parseFloat(coords[1])], 14);
+                @else
+                    var map = L.map('map').setView([12.8654, -85.2072], 7);
+                @endif
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                @foreach($city->places as $place)
+                    @if($place->latitude && $place->longitude)
+                        L.marker([{{ $place->latitude }}, {{ $place->longitude }}])
+                        .addTo(map)
+                        .bindPopup("<strong style='color:#4f46e5;'>{{ $place->name }}</strong><br>Atractivo del Circuito Creativo.");
+                    @endif
+                @endforeach
+            });
+        </script>
     </body>
 </html>
