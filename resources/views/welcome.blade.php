@@ -31,7 +31,12 @@
                             @auth
                                 <a href="{{ url('/dashboard') }}" class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition">Panel de Administración</a>
                             @else
-                                <a href="{{ route('login') }}" class="px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold rounded-xl shadow-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition">Iniciar Sesión</a>
+                                <div class="flex items-center gap-3">
+                                    <a href="{{ route('login') }}" class="px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold rounded-xl shadow-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition">Iniciar Sesión</a>
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}" class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition">Registrarse</a>
+                                    @endif
+                                </div>
                             @endauth
                         @endif
                     </div>
@@ -166,12 +171,17 @@
                     <div>
                         <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Administración</h4>
                         <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            Acceso exclusivo para la gestión de contenidos y actualización de destinos turísticos dentro de la plataforma.
+                            Acceso para la gestión de contenidos y registro de nuevos usuarios en la plataforma.
                         </p>
                         @auth
                             <a href="{{ url('/dashboard') }}" class="inline-block px-6 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow hover:bg-indigo-700 transition">Ir al Panel</a>
                         @else
-                            <a href="{{ route('login') }}" class="inline-block px-6 py-2.5 bg-gray-800 text-white text-sm font-bold rounded-lg border border-gray-700 hover:bg-gray-700 transition">Ingresar al Sistema</a>
+                            <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                                <a href="{{ route('login') }}" class="inline-block px-6 py-2.5 bg-gray-800 text-white text-sm font-bold rounded-lg border border-gray-700 hover:bg-gray-700 transition text-center">Ingresar al Sistema</a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="inline-block px-6 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow hover:bg-indigo-700 transition text-center">Registrarse</a>
+                                @endif
+                            </div>
                         @endauth
                     </div>
                 </div>

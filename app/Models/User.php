@@ -15,6 +15,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'identification',
+        'country',
     ];
 
     protected $hidden = [
@@ -28,15 +31,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function services()
-    {
-        return $this->hasMany(Service::class);
-    }
-
-    public function events()
-    {
-        return $this->hasMany(Event::class);
     }
 }

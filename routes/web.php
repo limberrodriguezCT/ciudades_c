@@ -20,9 +20,9 @@ Route::middleware(['auth', 'verified', 'prevent-back-history'])->group(function 
         if ($role === 'admin') {
             return view('dashboard');
         } elseif ($role === 'emprendedor') {
-            return view('dashboard.entrepreneur');
+            return view('dashboard.emprendedor');
         } else {
-            return view('dashboard.tourist');
+            return view('dashboard.turista');
         }
     })->name('dashboard');
 
