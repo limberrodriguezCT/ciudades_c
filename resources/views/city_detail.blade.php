@@ -89,6 +89,40 @@
                     </div>
                 @endforelse
             </div>
+
+            <div class="mt-20 mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Agenda Cultural y Eventos</h2>
+                <div class="mt-2 w-16 h-1.5 bg-indigo-600 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+                @forelse($city->events as $event)
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow border border-gray-100 dark:border-gray-700 flex overflow-hidden">
+                        @if($event->image_path)
+                            <div class="w-1/3 bg-gray-200 dark:bg-gray-700">
+                                <img src="{{ asset('storage/' . $event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                            </div>
+                        @else
+                            <div class="w-1/3 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-400">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        @endif
+                        <div class="p-6 w-2/3 flex flex-col justify-center">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{{ $event->title }}</h3>
+                            <p class="text-sm text-indigo-600 dark:text-indigo-400 font-semibold mb-2">{{ $event->event_date->format('d/m/Y h:i A') }}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ $event->description }}</p>
+                            <p class="text-xs text-gray-500 mt-3 font-medium flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                {{ $event->location_details ?? 'Ubicación no especificada' }}
+                            </p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-full py-12 text-center bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+                        <p class="text-gray-500 dark:text-gray-400">No hay eventos programados próximamente para este circuito.</p>
+                    </div>
+                @endforelse
+            </div>
             
             <div class="mt-20">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Ubicación del Circuito</h2>
