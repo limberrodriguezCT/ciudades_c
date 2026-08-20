@@ -112,7 +112,7 @@
                     </div>
                     
                     <div class="mt-6">
-                        <button type="button" @click="validarPaso()" class="w-full bg-indigo-600 text-white rounded-xl py-3 font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/30">
+                        <button type="button" @click="validarPaso()" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
                             Continuar
                         </button>
                     </div>
@@ -156,7 +156,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <button type="submit" class="w-full bg-indigo-600 text-white rounded-xl py-3 font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/30">
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
                         Finalizar Registro
                     </button>
                 </div>
