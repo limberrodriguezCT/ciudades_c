@@ -29,7 +29,9 @@
                         
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition">Panel de Administración</a>
+                                <a href="{{ url('/dashboard') }}" class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition">
+                                    {{ Auth::user()->role === 'admin' ? 'Panel de Administración' : 'Mi Panel' }}
+                                </a>
                             @else
                                 <div class="flex items-center gap-3">
                                     <a href="{{ route('login') }}" class="px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold rounded-xl shadow-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition">Iniciar Sesión</a>
@@ -135,7 +137,7 @@
                 @empty
                     <div class="col-span-full py-24 bg-gray-50 dark:bg-gray-800/50 rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 text-center">
                         <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg class="h-10 w-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg class="h-10 w-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Plataforma en Preparación</h3>
                         <p class="text-gray-500 dark:text-gray-400 max-w-md mx-auto">Estamos configurando los circuitos creativos. Muy pronto podrá visualizar los destinos turísticos habilitados en esta sección.</p>
@@ -169,12 +171,14 @@
                     </div>
                     
                     <div>
-                        <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Administración</h4>
+                        <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Plataforma</h4>
                         <p class="text-gray-400 text-sm leading-relaxed mb-6">
                             Acceso para la gestión de contenidos y registro de nuevos usuarios en la plataforma.
                         </p>
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="inline-block px-6 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow hover:bg-indigo-700 transition">Ir al Panel</a>
+                            <a href="{{ url('/dashboard') }}" class="inline-block px-6 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-lg shadow hover:bg-indigo-700 transition">
+                                {{ Auth::user()->role === 'admin' ? 'Ir al Panel Administrativo' : 'Ir a Mi Panel' }}
+                            </a>
                         @else
                             <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
                                 <a href="{{ route('login') }}" class="inline-block px-6 py-2.5 bg-gray-800 text-white text-sm font-bold rounded-lg border border-gray-700 hover:bg-gray-700 transition text-center">Ingresar al Sistema</a>
