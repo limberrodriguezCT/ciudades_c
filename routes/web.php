@@ -5,7 +5,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\PlaceController;
 use App\Http\Controllers\Admin\EventController;
-use App\Http\Controllers\Emprendedor\ServiceController;
+use App\Http\Controllers\Entrepreneur\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,9 +20,9 @@ Route::middleware(['auth', 'verified', 'prevent-back-history'])->group(function 
         if ($role === 'admin') {
             return view('dashboard');
         } elseif ($role === 'emprendedor') {
-            return view('dashboard.emprendedor');
+            return view('dashboard.entrepreneur');
         } else {
-            return view('dashboard.turista');
+            return view('dashboard.tourist');
         }
     })->name('dashboard');
 
@@ -31,24 +31,14 @@ Route::middleware(['auth', 'verified', 'prevent-back-history'])->group(function 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified', 'role:emprendedor'])->prefix('emprendedor')->name('emprendedor.')->group(function () {
-    Route::resource('servicios', ServiceController::class)
-        ->parameters(['servicios' => 'service'])
-        ->names('services');
+Route::middleware(['auth', 'verified', 'role:emprendedor'])->prefix('entrepreneur')->name('entrepreneur.')->group(function () {
+    Route::resource('services', ServiceController::class);
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('ciudades', CityController::class)
-        ->parameters(['ciudades' => 'city'])
-        ->names('cities');
-        
-    Route::resource('lugares', PlaceController::class)
-        ->parameters(['lugares' => 'place'])
-        ->names('places');
-        
-    Route::resource('eventos', EventController::class)
-        ->parameters(['eventos' => 'event'])
-        ->names('events');
+    Route::resource('cities', CityController::class);
+    Route::resource('places', PlaceController::class);
+    Route::resource('events', EventController::class);
 });
 
 require __DIR__.'/auth.php';
