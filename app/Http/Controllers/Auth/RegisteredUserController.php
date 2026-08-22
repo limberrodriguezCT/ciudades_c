@@ -23,21 +23,14 @@ class RegisteredUserController extends Controller
     {
         $messages = [
             'name.required' => 'El nombre completo es obligatorio.',
-            'name.max' => 'El nombre no puede exceder los 255 caracteres.',
             'email.required' => 'El correo electrónico es obligatorio.',
-            'email.email' => 'Debe ingresar un formato de correo válido.',
-            'email.unique' => 'Este correo ya se encuentra registrado en el sistema.',
+            'email.unique' => 'Este correo ya está registrado.',
             'password.required' => 'La contraseña es obligatoria.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
-            'password.confirmed' => 'Las contraseñas ingresadas no coinciden.',
-            'role.required' => 'Debe seleccionar un perfil válido.',
-            'role.in' => 'El perfil seleccionado no es reconocido.',
-            'phone.max' => 'El número de teléfono no debe exceder los 20 caracteres.',
-            'phone.unique' => 'Este número de teléfono ya se encuentra registrado.',
-            'identification.required_if' => 'La cédula de identidad es obligatoria al registrarse como emprendedor.',
-            'identification.regex' => 'El formato de la cédula es incorrecto. Debe incluir guiones y la letra final (Ej. 000-000000-0000A).',
-            'identification.max' => 'La cédula de identidad no debe exceder los 30 caracteres.',
-            'country.max' => 'El país no debe exceder los 100 caracteres.',
+            'phone.required' => 'El número de teléfono es obligatorio.',
+            'phone.regex' => 'El teléfono debe tener el formato: +505 XXXX XXXX.',
+            'identification.required_if' => 'La cédula es obligatoria para emprendedores.',
+            'identification.regex' => 'Formato de cédula incorrecto (Ej. 000-000000-0000A).',
         ];
 
         $request->validate([
@@ -45,7 +38,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Password::min(8)],
             'role' => ['required', 'string', 'in:turista,emprendedor'],
-            'phone' => ['nullable', 'string', 'max:20', 'unique:'.User::class],
+            'phone' => ['required', 'string', 'regex:/^\+\d{1,4}\s\d{3,4}\s\d{4}$/', 'unique:'.User::class],
             'identification' => ['nullable', 'required_if:role,emprendedor', 'string', 'regex:/^\d{3}-\d{6}-\d{4}[A-Za-z]$/', 'max:30'],
             'country' => ['nullable', 'string', 'max:100'],
         ], $messages);
@@ -61,9 +54,8 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
 
         return redirect()->route('dashboard');
     }
-}
+}   

@@ -4,6 +4,7 @@
         role: '{{ old('role', '') }}',
         name: '{{ old('name', '') }}',
         email: '{{ old('email', '') }}',
+        phone: '{{ old('phone', '') }}',
         identification: '{{ old('identification', '') }}'
     })" class="w-full p-8 md:p-12">
         <form method="POST" action="{{ route('register') }}" @submit="validarEnvio" novalidate>
@@ -90,7 +91,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Número de Teléfono</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}" class="w-full bg-gray-50 dark:bg-gray-900 rounded-xl border-gray-200 dark:border-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="+505 8888 8888">
+                        <input type="text" name="phone" x-model="phone" @input="formatearTelefono" class="w-full bg-gray-50 dark:bg-gray-900 rounded-xl border-gray-200 dark:border-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="+505 8888 8888">
                     </div>
                     
                     <div x-show="role === 'emprendedor'">
