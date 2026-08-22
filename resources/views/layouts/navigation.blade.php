@@ -17,7 +17,7 @@
                     </x-nav-link>
 
                     @if(Auth::user()->role === 'admin')
-                        <x-nav-link :href="route('admin.cities.index')" :active="request()->request->routeIs('admin.cities.*')">
+                        <x-nav-link :href="route('admin.cities.index')" :active="request()->routeIs('admin.cities.*')">
                             {{ __('Ciudades') }}
                         </x-nav-link>
                         
